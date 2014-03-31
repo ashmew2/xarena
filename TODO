@@ -1,0 +1,2 @@
+1. Set lblHello in mainscreen.java as username when user logs in successfully.
+2. Problems list in drop down is static now, need to fetch from server when mainscreen loads up. (optional)
