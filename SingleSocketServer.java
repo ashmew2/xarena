@@ -92,7 +92,7 @@ public class SingleSocketServer {
 		        	  System.out.println("here in GETSTATEMENT");
 		        	  int problemID = Integer.parseInt(input_string.toString());
 		        	  Charset charset = Charset.forName("UTF-8");
-		      		String problemPath = "/home/" + username + "/xprog/" + problemID + "/statement.txt";
+		      		String problemPath = "/home/" + username + "/xprog/" + problemID + "/prob" + problemID + "_statement.txt";
 		      		
 		      		System.out.println("GETSTATEMENT: getting problem from path " + problemPath);
 		      		
@@ -143,8 +143,8 @@ public class SingleSocketServer {
 		int return_status = -1;
 		ProcessBuilder x = new ProcessBuilder();
 		
-		String tcFilePath = "/home/" + username + "/xprog/" + problemID + "/" + "input.txt";
-		String opFilePath = "/home/" + username + "/xprog/" + problemID + "/" + "testop.txt";
+		String tcFilePath = "/home/" + username + "/xprog/" + problemID + "/" + "prob" + problemID + "_input.txt";
+		String opFilePath = "/home/" + username + "/xprog/" + problemID + "/" + "prob" + problemID + "_testop.txt";
 		
 		File tcfile = new File(tcFilePath); 
 		File opfile = new File(opFilePath);
@@ -155,7 +155,6 @@ public class SingleSocketServer {
 		
 		try {
 			Process p = r.exec("g++ -c /home/" + username + "/xprog/srccode.cpp");
-			System.out.println("Here 1.1.1.1.1");
 			
 			try {
 				return_status = p.waitFor();
@@ -250,7 +249,7 @@ public class SingleSocketServer {
 		
 		Charset charset = Charset.forName("UTF-8");
 		
-		String selectedFilePath = "/home/" + username + "/xprog/" + problemID + "/testop.txt";
+		String selectedFilePath = "/home/" + username + "/xprog/" + problemID + "/prob" + problemID + "_testop.txt";
 		Path file = Paths.get(selectedFilePath);
 		String selectedFileContents = "";
 				
@@ -266,7 +265,7 @@ public class SingleSocketServer {
 		    System.err.format("IOException: %s%n", x2);
 		}
 		
-		selectedFilePath = "/home/" + username + "/xprog/" + problemID + "/expected.txt";
+		selectedFilePath = "/home/" + username + "/xprog/" + problemID + "/prob" + problemID + "_expected.txt";
 		file = Paths.get(selectedFilePath);
 		String selectedFileContents2 = "";
 				
