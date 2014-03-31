@@ -80,7 +80,7 @@ public class SingleSocketServer {
 
 		    		  try {
 		    			  Class.forName("org.sqlite.JDBC");
-		    			  conn = DriverManager.getConnection("jdbc:sqlite:/home/ashish/xarena.db");
+		    			  conn = DriverManager.getConnection("jdbc:sqlite:/home/" + username + "/xarena.db");
 		    			  conn.setAutoCommit(false);
 		    			  System.out.println("Opened database successfully");
 
