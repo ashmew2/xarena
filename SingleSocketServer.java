@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.io.*;
 import java.util.*;
-
+import java.sql.*;
 	
 public class SingleSocketServer {
 
@@ -28,34 +28,105 @@ public class SingleSocketServer {
 	
 	 public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		 
+		 Connection conn = null;
+		 Statement stmt = null;
+		 int logged_in  = 0;
+		 
+		 System.out.println("Read from Database!");
+		 
 		 try {
 		      socket1 = new ServerSocket(port);
-		      System.out.println("SingleSocketServer Initialized");
-		      int character;
+		      BufferedInputStream is;
+		      InputStreamReader isr;
 		      
-		      while (true) {
-		          connection = socket1.accept();
-		      	  System.out.println("Server: Accepted client.");
-				
-		          BufferedInputStream is = new BufferedInputStream(connection.getInputStream());
-		          InputStreamReader isr = new InputStreamReader(is);
-		          System.out.println("Server: Made Streams.");
-		          
-		          input_type = new StringBuffer();
-		          input_string = new StringBuffer(); //We get the program in input_string
-		          
+		      System.out.println("The server is now running on port " + port);
+		      int character;
+		      int status = 0; //0 means waiting for client to connect with correct user/pass
+		      //1 means that client has connected and now waiting for problem to be served.
+		      while(true)		      
+		    	  if(logged_in == 0) {
+		    		  connection = socket1.accept();
+		    		  System.out.println("Server: Accepted client.");
 
+		    		  is = new BufferedInputStream(connection.getInputStream());
+		    		  isr = new InputStreamReader(is);
+		    		  System.out.println("Server: Made Streams.");
+
+		    		  StringBuffer input_login = new StringBuffer();
+		    		  StringBuffer input_username = new StringBuffer();
+		    		  StringBuffer input_password = new StringBuffer();		         
+
+		    		  input_type = new StringBuffer();
+		    		  input_string = new StringBuffer(); //We get the program in input_string
+		    		  //"LOGIN" + char13 + uname + char13 + pword + char13 ayega
+
+		    		  while((character = isr.read()) != 13) {
+		    			  input_login.append((char)character);
+		    			  System.out.println("Server: trying to read char, read : "+ (char)character);
+		    		  }
+
+		    		  while((character = isr.read()) != 13) {
+		    			  input_username.append((char)character);
+		    			  System.out.println("Server: trying to read char, read : "+ (char)character);
+		    		  }
+
+		    		  while((character = isr.read()) != 13) {
+		    			  input_password.append((char)character);
+		    			  System.out.println("Server: trying to read char, read : "+ (char)character);
+		    		  }
+
+		    		  System.out.println("Got : " + input_username + " : " + input_password);		          
+
+		    		  try {
+		    			  Class.forName("org.sqlite.JDBC");
+		    			  conn = DriverManager.getConnection("jdbc:sqlite:/home/ashish/xarena.db");
+		    			  conn.setAutoCommit(false);
+		    			  System.out.println("Opened database successfully");
+
+		    			  stmt = conn.createStatement();
+		    			  ResultSet rs = stmt.executeQuery( "SELECT * FROM PARTICIPANT;" );
+
+		    			  while ( rs.next() ) {
+		    				  String username = rs.getString("username");
+		    				  String  password = rs.getString("password");
+		    				  if((username.equals(input_username)) && (password.equals(input_password) ) )
+		    						  {
+		    					  logged_in = 1;
+		    					  //Send to client "Welcome to the X Arena";
+		    					  break;
+		    						  }
+		    			  }
+
+		    			  rs.close();
+		    			  stmt.close();
+		    			  conn.close();
+		    		  } catch ( Exception e ) {
+		    			  System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+		    			  System.exit(0);
+		    		  }
+
+		    	  } //End of logging in part.
+		      
+		      else {
+		    	  
+		    	  is = new BufferedInputStream(connection.getInputStream());
+	    		  isr = new InputStreamReader(is);
+	    		  input_type = new StringBuffer();
+	    		  input_string = new StringBuffer();
+	    		  
 		          while((character = isr.read()) != 13) {
 		            input_type.append((char)character);
 		            System.out.println("Server: trying to read char, read : "+ (char)character);
 		          }
+		          
+		          if(input_type.equals(""))
 		          
 		          while((character = isr.read()) != 13) {
 		            input_string.append((char)character);
 		            System.out.println("Server: trying to read char, read : "+ (char)character);
 		          }
 		          
-
 		          System.out.println("Server: input_type : $" + input_type + "$");
 		          System.out.println("Server: input_string : $" + input_string + "$");
 		          
