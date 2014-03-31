@@ -1,0 +1,15 @@
+Write a program to accept a string and print it back.
+There will be a number of inputs, Process each one and output the result followed by a new line in all cases.
+
+Example :
+
+Input:
+	h1
+	h2
+	h3
+
+Output:
+	h1
+	h2
+	h3
+
