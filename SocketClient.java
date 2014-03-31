@@ -3,6 +3,8 @@ import java.net.*;
 import java.nio.file.Files;
 /* The java.io package contains the basics needed for IO operations. */
 import java.io.*;
+
+import javax.swing.JOptionPane;
 /** The SocketClient class is a simple example of a TCP/IP Socket Client.
  *
  */
@@ -202,5 +204,52 @@ public class SocketClient {
 		}
 		return statement;
 		
+	}
+	
+	
+	public int sendLoginDetails(String loginDetails) {
+		
+		int return_value = 0;
+		
+		try {
+			//Send request
+			BufferedOutputStream bos = new BufferedOutputStream(connection.
+			            getOutputStream());
+			OutputStreamWriter osw = new OutputStreamWriter(bos, "UTF-8");
+			
+			osw.write(loginDetails);
+            osw.flush();
+            
+            System.out.println("Client: sendLoginDetails() : Wrote out to osw, authentication in process");
+			
+			// Get statement
+			BufferedInputStream bis = new BufferedInputStream(connection.
+		                getInputStream());
+			InputStreamReader isr = new InputStreamReader(bis, "UTF-8");
+			
+			
+			int login_status = isr.read();
+			
+			if(login_status == 1) {
+				System.out.println("Client: sendLoginDetails() : Logged in successfully: ");
+				return_value = 1;
+			} else {
+				System.out.println("Client: sendLoginDetails() : Login failed. ");
+				return_value = 0;
+			}
+			 
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		try {
+			connection.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return return_value;
 	}
 }

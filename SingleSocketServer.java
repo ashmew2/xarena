@@ -12,7 +12,7 @@ public class SingleSocketServer {
 	/**
 	 * @param args
 	 */
-	 static String username = "ashish";
+	 static String username = "sudipto";
 	 static ServerSocket socket1;
 	 protected final static int port = 27016;
 	 private static final int RUNTIME_ERROR = 10;	
