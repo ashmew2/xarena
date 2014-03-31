@@ -1,0 +1,31 @@
+Write a program to accept a number and a message and print the message the number of times that was accepted.
+
+Format of the input is : 
+The first line contains T, the number of test cases.
+
+Each test case consists of two lines : 
+The first line contains N , the number of times you must output the message.
+The next line contains a string S, the message to be printed.
+
+You must print out the string S N times (on different lines) for each test case.
+
+Note: S does not contain spaces.
+
+Example :
+
+Input:
+	2
+	5
+	PeopleInConstantTrouble		
+	3 
+	IronMan
+
+Output:
+	PeopleInConstantTrouble		
+	PeopleInConstantTrouble		
+	PeopleInConstantTrouble		
+	PeopleInConstantTrouble		
+	PeopleInConstantTrouble
+	IronMan
+	IronMan
+	IronMan
