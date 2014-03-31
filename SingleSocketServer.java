@@ -12,14 +12,14 @@ public class SingleSocketServer {
 	/**
 	 * @param args
 	 */
-
+	 static String username = "ashish";
 	 static ServerSocket socket1;
 	 protected final static int port = 27016;
 	 private static final int RUNTIME_ERROR = 10;	
 	 private static final int COMPILE_ERROR = 20;
-	private static final int SUCCESS_RETURN = 0;
-	private static final int CORRECT_ANSWER = 30;
-	private static final int WRONG_ANSWER = 40;
+ 	 private static final int SUCCESS_RETURN = 0;
+     private static final int CORRECT_ANSWER = 30;
+	 private static final int WRONG_ANSWER = 40;
 	 static Socket connection;
 
 	 static boolean first;
@@ -72,7 +72,7 @@ public class SingleSocketServer {
 		        	  
 			          System.out.println("Server: submission_string : " + submission_string);		          
 			          
-			          PrintWriter writer = new PrintWriter("/home/sudipto/xprog/srccode.cpp", "UTF-8");
+			          PrintWriter writer = new PrintWriter("/home/" + username + "/xprog/srccode.cpp", "UTF-8");
 					      		          
 			          writer.print(submission_string.toString());
 			          
@@ -92,7 +92,7 @@ public class SingleSocketServer {
 		        	  System.out.println("here in GETSTATEMENT");
 		        	  int problemID = Integer.parseInt(input_string.toString());
 		        	  Charset charset = Charset.forName("UTF-8");
-		      		String problemPath = "/home/sudipto/xprog/" + problemID + "/statement.txt";
+		      		String problemPath = "/home/" + username + "/xprog/" + problemID + "/statement.txt";
 		      		
 		      		System.out.println("GETSTATEMENT: getting problem from path " + problemPath);
 		      		
@@ -143,18 +143,18 @@ public class SingleSocketServer {
 		int return_status = -1;
 		ProcessBuilder x = new ProcessBuilder();
 		
-		String tcFilePath = "/home/sudipto/xprog/" + problemID + "/" + "input.txt";
-		String opFilePath = "/home/sudipto/xprog/" + problemID + "/" + "testop.txt";
+		String tcFilePath = "/home/" + username + "/xprog/" + problemID + "/" + "input.txt";
+		String opFilePath = "/home/" + username + "/xprog/" + problemID + "/" + "testop.txt";
 		
 		File tcfile = new File(tcFilePath); 
 		File opfile = new File(opFilePath);
 		x.redirectInput(tcfile);
 		x.redirectOutput(opfile);
 		
-		x.command("/home/sudipto/xprog/temp_bin");
+		x.command("/home/" + username + "/xprog/temp_bin");
 		
 		try {
-			Process p = r.exec("g++ -c /home/sudipto/xprog/srccode.cpp");
+			Process p = r.exec("g++ -c /home/" + username + "/xprog/srccode.cpp");
 			System.out.println("Here 1.1.1.1.1");
 			
 			try {
@@ -175,7 +175,7 @@ public class SingleSocketServer {
 			return_status = -1;
 			System.out.println("Here 1.1");	
 			try {
-				Process p = r.exec("g++ -lm /home/sudipto/xprog/srccode.cpp -o /home/sudipto/xprog/temp_bin");
+				Process p = r.exec("g++ -lm /home/" + username + "/xprog/srccode.cpp -o /home/" + username + "/xprog/temp_bin");
 				System.out.println("Here 1.2");
 				try {
 					return_status = p.waitFor();
@@ -191,7 +191,7 @@ public class SingleSocketServer {
 			
 			/*49941 - password*/
 				try {
-				//Process p = r.exec("/home/sudipto/temp_bin < /home/sudipto/tester_case > /home/sudipto/tester_op.txt");
+				//Process p = r.exec("/home/" + username + "/temp_bin < /home/" + username + "/tester_case > /home/" + username + "/tester_op.txt");
 				Process p = x.start();
 				try {
 					return_status = p.waitFor();
@@ -228,9 +228,9 @@ public class SingleSocketServer {
 		// If it reached here, that means the code ran successfullt. Time to diff.
 		
 		/*ProcessBuilder b = new ProcessBuilder();
-		File f = new File("/home/sudipto/differ.diff");
+		File f = new File("/home/" + username + "/differ.diff");
 		b.redirectOutput(f);
-		//b.command("diff -u /home/sudipto/tester_op.txt /home/sudipto/expected_op.txt");
+		//b.command("diff -u /home/" + username + "/tester_op.txt /home/" + username + "/expected_op.txt");
 		b.command("/usr/bin/diff -u");
 		return_status = -1;
 		
@@ -250,7 +250,7 @@ public class SingleSocketServer {
 		
 		Charset charset = Charset.forName("UTF-8");
 		
-		String selectedFilePath = "/home/sudipto/xprog/" + problemID + "/testop.txt";
+		String selectedFilePath = "/home/" + username + "/xprog/" + problemID + "/testop.txt";
 		Path file = Paths.get(selectedFilePath);
 		String selectedFileContents = "";
 				
@@ -266,7 +266,7 @@ public class SingleSocketServer {
 		    System.err.format("IOException: %s%n", x2);
 		}
 		
-		selectedFilePath = "/home/sudipto/xprog/" + problemID + "/expected.txt";
+		selectedFilePath = "/home/" + username + "/xprog/" + problemID + "/expected.txt";
 		file = Paths.get(selectedFilePath);
 		String selectedFileContents2 = "";
 				
