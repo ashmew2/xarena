@@ -102,10 +102,12 @@ public class loginscreen {
 					
 					if( client.sendLoginDetails(loginDetails) == 1) {
 						JOptionPane.showMessageDialog(frame, "Login successfull!");
+						
+						// TODO: Set lblHello in mainscreen as "Hello, " + username
 						mainscreen screen = new mainscreen();
 						window.frame.setVisible(false);
 						screen.main(null);
-					
+						
 					} else {
 						JOptionPane.showMessageDialog(frame, "Login failed");
 					}
