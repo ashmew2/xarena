@@ -97,7 +97,7 @@ public class mainscreen {
 		frame.setBounds(100, 100, 600, 450);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{21, 136, 129, 84, 71, 24, 0};
+		gridBagLayout.columnWidths = new int[]{21, 136, 129, 84, 194, 24, 0};
 		gridBagLayout.rowHeights = new int[]{30, 242, 0, 0, 25, 0, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
@@ -114,19 +114,19 @@ public class mainscreen {
 		
 		JLabel lblProblem = new JLabel("Problem:");
 		GridBagConstraints gbc_lblProblem = new GridBagConstraints();
-		gbc_lblProblem.insets = new Insets(0, 0, 5, 5);
 		gbc_lblProblem.anchor = GridBagConstraints.EAST;
+		gbc_lblProblem.insets = new Insets(0, 0, 5, 5);
 		gbc_lblProblem.gridx = 3;
 		gbc_lblProblem.gridy = 0;
 		frame.getContentPane().add(lblProblem, gbc_lblProblem);
 		
 		
-		String[] problemNamesList = { "---" , "Problem 1" };
+		String[] problemNamesList = { "choose a problem" , "Problem 1" , "Problem 2"};
 		JComboBox comboBoxProblemsList = new JComboBox(problemNamesList);
 		GridBagConstraints gbc_comboBoxProblemsList = new GridBagConstraints();
+		gbc_comboBoxProblemsList.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBoxProblemsList.anchor = GridBagConstraints.SOUTH;
 		gbc_comboBoxProblemsList.insets = new Insets(0, 0, 5, 5);
-		gbc_comboBoxProblemsList.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBoxProblemsList.gridx = 4;
 		gbc_comboBoxProblemsList.gridy = 0;
 		frame.getContentPane().add(comboBoxProblemsList, gbc_comboBoxProblemsList);
@@ -182,13 +182,14 @@ public class mainscreen {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				
 				System.exit(0);
 			}
 		});
 		
 		//String problemStatementString = loadProblem(1);
 		
-		textArea.setText("Select problem 1 from the dropdown for now to load");
+		textArea.setText("Select a problem.");
 		
 		textArea.setCaretPosition(0);
 		
@@ -217,7 +218,7 @@ public class mainscreen {
 						lblChosenFile.setText(selectedFile.getName());
 						
 						try {
-							textArea.setText(selectedFile.getCanonicalPath());
+							//textArea.setText(selectedFile.getCanonicalPath());
 							selectedFilePath = selectedFile.getCanonicalPath();
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
@@ -274,14 +275,16 @@ public class mainscreen {
 				String problemSelected = (String) cb.getSelectedItem();
 				int problemSelectedIndex = (int) cb.getSelectedIndex();
 				
-				JOptionPane.showMessageDialog(frame, "You selected problem " + problemSelected);
-				
-				String statement = loadProblem(problemSelectedIndex);
-				textArea.setText(statement);
-				
-				currentProblemID = problemSelectedIndex;
-				
-				// Fetch problem from server
+				if(problemSelectedIndex > 0) { 
+					JOptionPane.showMessageDialog(frame, "You selected problem ID: " + problemSelectedIndex);
+					
+					String statement = loadProblem(problemSelectedIndex);
+					textArea.setText(statement);
+					textArea.setCaretPosition(0);
+					currentProblemID = problemSelectedIndex;
+					
+					// Fetch problem from server
+				}
 			}
 		});
 		
@@ -307,7 +310,6 @@ public class mainscreen {
 		}*/
 		
 		String statement = "";
-		client = new SocketClient();
 		client = new SocketClient();
 		int connectionStatus = client.main(null);
 		if(connectionStatus == CONNECTION_ESTABILISHED) {

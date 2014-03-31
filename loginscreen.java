@@ -25,7 +25,7 @@ public class loginscreen {
 
 
 	private static final int CONNECTION_ESTABILISHED = 50;
-	
+	static loginscreen window;
 	/**
 	 * Launch the application.
 	 */
@@ -33,7 +33,7 @@ public class loginscreen {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					loginscreen window = new loginscreen();
+					window = new loginscreen();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -98,12 +98,12 @@ public class loginscreen {
 					username = usernameTextField.getText();
 					password = passwordTextField.getPassword();
 					
-					loginDetails = "LOGIN" + (char)13 + username + (char)13 + password.toString() + (char)13; 
+					loginDetails = "LOGIN" + (char)13 + username + (char)13 + (new String(password)) + (char)13; 
 					
 					if( client.sendLoginDetails(loginDetails) == 1) {
 						JOptionPane.showMessageDialog(frame, "Login successfull!");
 						mainscreen screen = new mainscreen();
-						
+						window.frame.setVisible(false);
 						screen.main(null);
 					
 					} else {
