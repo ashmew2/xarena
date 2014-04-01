@@ -57,7 +57,6 @@ public class mainscreen {
 	private static final int CONNECTION_ESTABILISHED = 50;
 	
 	int currentProblemID = 0;
-	public String username = "";
 	
 	SocketClient client;
 	private JFrame frame;
@@ -93,51 +92,46 @@ public class mainscreen {
 	private void initialize() {
 		frame = new JFrame();
 		frame.getContentPane().setForeground(Color.WHITE);
-		frame.getContentPane().setBackground(UIManager.getColor("Button.background"));
+		frame.getContentPane().setBackground(Color.BLACK);
 		frame.setBackground(Color.DARK_GRAY);
 		frame.setBounds(100, 100, 600, 450);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{21, 136, 129, 84, 194, 24, 0};
-		gridBagLayout.rowHeights = new int[]{33, 33, 242, 0, 0, 25, 0, 0};
+		gridBagLayout.rowHeights = new int[]{33, 242, 0, 0, 25, 0, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		frame.getContentPane().setLayout(gridBagLayout);
 		
-		System.out.println("username is " + username);
-		JLabel lblHello = new JLabel("Hello, " + username);
-		GridBagConstraints gbc_lblHello = new GridBagConstraints();
-		gbc_lblHello.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblHello.insets = new Insets(0, 0, 5, 5);
-		gbc_lblHello.gridx = 1;
-		gbc_lblHello.gridy = 0;
-		frame.getContentPane().add(lblHello, gbc_lblHello);
-		
+			
 		JLabel lblProblemStatement = new JLabel("Problem Statement");
+		lblProblemStatement.setForeground(Color.GREEN);
 		GridBagConstraints gbc_lblProblemStatement = new GridBagConstraints();
 		gbc_lblProblemStatement.anchor = GridBagConstraints.WEST;
 		gbc_lblProblemStatement.fill = GridBagConstraints.VERTICAL;
 		gbc_lblProblemStatement.insets = new Insets(0, 0, 5, 5);
 		gbc_lblProblemStatement.gridx = 1;
-		gbc_lblProblemStatement.gridy = 1;
+		gbc_lblProblemStatement.gridy = 0;
 		frame.getContentPane().add(lblProblemStatement, gbc_lblProblemStatement);
 		
 		JLabel lblProblem = new JLabel("Problem:");
+		lblProblem.setForeground(Color.GREEN);
 		GridBagConstraints gbc_lblProblem = new GridBagConstraints();
 		gbc_lblProblem.anchor = GridBagConstraints.EAST;
 		gbc_lblProblem.insets = new Insets(0, 0, 5, 5);
 		gbc_lblProblem.gridx = 3;
-		gbc_lblProblem.gridy = 1;
+		gbc_lblProblem.gridy = 0;
 		frame.getContentPane().add(lblProblem, gbc_lblProblem);
 		
 		
 		String[] problemNamesList = { "choose a problem" , "Problem 1" , "Problem 2"};
 		JComboBox comboBoxProblemsList = new JComboBox(problemNamesList);
+		comboBoxProblemsList.setForeground(Color.LIGHT_GRAY);
 		GridBagConstraints gbc_comboBoxProblemsList = new GridBagConstraints();
 		gbc_comboBoxProblemsList.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBoxProblemsList.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBoxProblemsList.gridx = 4;
-		gbc_comboBoxProblemsList.gridy = 1;
+		gbc_comboBoxProblemsList.gridy = 0;
 		frame.getContentPane().add(comboBoxProblemsList, gbc_comboBoxProblemsList);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -153,14 +147,15 @@ public class mainscreen {
 		gbc_scrollPane.gridwidth = 4;
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
 		gbc_scrollPane.gridx = 1;
-		gbc_scrollPane.gridy = 2;
+		gbc_scrollPane.gridy = 1;
 		frame.getContentPane().add(scrollPane, gbc_scrollPane);
 		
 		JLabel lblChooseYourFile = new JLabel("Choose your file:");
+		lblChooseYourFile.setForeground(Color.GREEN);
 		GridBagConstraints gbc_lblChooseYourFile = new GridBagConstraints();
 		gbc_lblChooseYourFile.insets = new Insets(0, 0, 5, 5);
 		gbc_lblChooseYourFile.gridx = 1;
-		gbc_lblChooseYourFile.gridy = 4;
+		gbc_lblChooseYourFile.gridy = 3;
 		frame.getContentPane().add(lblChooseYourFile, gbc_lblChooseYourFile);
 		
 		JButton btnBrowse = new JButton("Browse...");
@@ -168,14 +163,14 @@ public class mainscreen {
 		gbc_btnBrowse.anchor = GridBagConstraints.WEST;
 		gbc_btnBrowse.insets = new Insets(0, 0, 5, 5);
 		gbc_btnBrowse.gridx = 2;
-		gbc_btnBrowse.gridy = 4;
+		gbc_btnBrowse.gridy = 3;
 		frame.getContentPane().add(btnBrowse, gbc_btnBrowse);
 		
 		JButton btnSubmit = new JButton("Submit");
 		GridBagConstraints gbc_btnSubmit = new GridBagConstraints();
 		gbc_btnSubmit.insets = new Insets(0, 0, 5, 5);
 		gbc_btnSubmit.gridx = 3;
-		gbc_btnSubmit.gridy = 4;
+		gbc_btnSubmit.gridy = 3;
 		frame.getContentPane().add(btnSubmit, gbc_btnSubmit);
 		
 		JButton btnQuit = new JButton("Close");
@@ -183,7 +178,7 @@ public class mainscreen {
 		gbc_btnQuit.anchor = GridBagConstraints.EAST;
 		gbc_btnQuit.insets = new Insets(0, 0, 5, 5);
 		gbc_btnQuit.gridx = 4;
-		gbc_btnQuit.gridy = 4;
+		gbc_btnQuit.gridy = 3;
 		frame.getContentPane().add(btnQuit, gbc_btnQuit);
 		
 		btnQuit.addActionListener(new ActionListener() {
@@ -206,7 +201,7 @@ public class mainscreen {
 		GridBagConstraints gbc_lblChosenFile = new GridBagConstraints();
 		gbc_lblChosenFile.insets = new Insets(0, 0, 5, 5);
 		gbc_lblChosenFile.gridx = 1;
-		gbc_lblChosenFile.gridy = 5;
+		gbc_lblChosenFile.gridy = 4;
 		frame.getContentPane().add(lblChosenFile, gbc_lblChosenFile);
 		
 		final JFileChooser fc = new JFileChooser();

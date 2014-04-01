@@ -15,6 +15,7 @@ import java.awt.event.ActionEvent;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
+import java.awt.Color;
 
 
 public class loginscreen {
@@ -54,12 +55,13 @@ public class loginscreen {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.getContentPane().setBackground(Color.BLACK);
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
 				ColumnSpec.decode("60px"),
 				ColumnSpec.decode("72px"),
-				ColumnSpec.decode("35px"),
+				ColumnSpec.decode("25px"),
 				ColumnSpec.decode("166px"),},
 			new RowSpec[] {
 				RowSpec.decode("30px"),
@@ -72,9 +74,11 @@ public class loginscreen {
 				RowSpec.decode("25px"),}));
 		
 		JLabel lblXarena = new JLabel("XARENA");
+		lblXarena.setForeground(Color.GREEN);
 		frame.getContentPane().add(lblXarena, "4, 2, center, center");
 		
 		JLabel lblUsername = new JLabel("Username");
+		lblUsername.setForeground(Color.GREEN);
 		frame.getContentPane().add(lblUsername, "2, 4, center, center");
 		
 		usernameTextField = new JTextField();
@@ -82,6 +86,7 @@ public class loginscreen {
 		usernameTextField.setColumns(10);
 		
 		JLabel lblPassword = new JLabel("Password");
+		lblPassword.setForeground(Color.GREEN);
 		frame.getContentPane().add(lblPassword, "2, 6, center, center");
 		
 		passwordTextField = new JPasswordField();
@@ -103,7 +108,6 @@ public class loginscreen {
 					if( client.sendLoginDetails(loginDetails) == 1) {
 						JOptionPane.showMessageDialog(frame, "Login successfull!");
 						
-						// TODO: Set lblHello in mainscreen as "Hello, " + username
 						mainscreen screen = new mainscreen();
 						window.frame.setVisible(false);
 						screen.main(null);
