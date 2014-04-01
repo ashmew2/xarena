@@ -55,13 +55,14 @@ public class mainscreen {
 	private static final int WRONG_ANSWER = 40;
 
 	private static final int CONNECTION_ESTABILISHED = 50;
-	
+
+	private static final int TIME_LIMIT_EXCEEDED = 60;
 	int currentProblemID = 0;
 	
 	SocketClient client;
 	private JFrame frame;
 	public String selectedFilePath = "", selectedFileContents = "";
-
+	static mainscreen window;
 	/**
 	 * Launch the application.
 	 */
@@ -69,7 +70,7 @@ public class mainscreen {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					mainscreen window = new mainscreen();
+					window = new mainscreen();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -186,8 +187,18 @@ public class mainscreen {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				client = new SocketClient();
+				client.main(null);
 				
-				System.exit(0);
+				String request = "LOGOUT" + (char)13 + "ME" + (char)13;
+				
+				client.Logout(request);
+				
+				loginscreen lscreen = new loginscreen();
+				lscreen.main(null);
+				window.frame.setVisible(false);
+				
+				//System.exit(0);
 			}
 		});
 		
@@ -246,7 +257,10 @@ public class mainscreen {
 					
 					if(selectedFilePath == "") {
 						JOptionPane.showMessageDialog(frame, "Please select a file to submit first");
-					} else {
+					} else if(currentProblemID == 0) {
+						JOptionPane.showMessageDialog(frame, "Please choose a problem first");
+					}
+					else {
 					
 						Charset charset = Charset.forName("UTF-8");
 	//					selectedFilePath = "/home/sudipto/tester.cpp";
@@ -280,7 +294,7 @@ public class mainscreen {
 				int problemSelectedIndex = (int) cb.getSelectedIndex();
 				
 				if(problemSelectedIndex > 0) { 
-					JOptionPane.showMessageDialog(frame, "You selected problem ID: " + problemSelectedIndex);
+					//JOptionPane.showMessageDialog(frame, "You selected problem ID: " + problemSelectedIndex);
 					
 					String statement = loadProblem(problemSelectedIndex);
 					textArea.setText(statement);
@@ -317,7 +331,7 @@ public class mainscreen {
 		client = new SocketClient();
 		int connectionStatus = client.main(null);
 		if(connectionStatus == CONNECTION_ESTABILISHED) {
-			JOptionPane.showMessageDialog(frame, "Connection to server estabilished.");
+			//JOptionPane.showMessageDialog(frame, "Connection to server estabilished.");
 		}
 		statement = client.getProblemStatement(problemID);
 		
@@ -345,7 +359,7 @@ public class mainscreen {
 		client = new SocketClient();
 		int connectionStatus = client.main(null);
 		if(connectionStatus == CONNECTION_ESTABILISHED) {
-			JOptionPane.showMessageDialog(frame, "Connection to server estabilished.");
+			//JOptionPane.showMessageDialog(frame, "Connection to server estabilished.");
 		}
 		
 		int verdict = client.sendSubmission(submission, currentProblemID);
@@ -359,6 +373,10 @@ public class mainscreen {
 			JOptionPane.showMessageDialog(frame, "Your submission was judged as : COMPILE ERROR");
 		} else if(verdict == WRONG_ANSWER) {
 			JOptionPane.showMessageDialog(frame, "Your submission was judged as : WRONG ANSWER");
+		} else if(verdict == TIME_LIMIT_EXCEEDED) {
+			JOptionPane.showMessageDialog(frame, "Your submission was judged as : TIME LIMIT EXCEEDED");
+		} else  {
+			JOptionPane.showMessageDialog(frame, "Your submission was DENIED JUDGEMENT .|..");
 		}
 	
 	}

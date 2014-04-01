@@ -252,4 +252,47 @@ public class SocketClient {
 		}
 		return return_value;
 	}
+	
+	public int Logout(String loginDetails) {
+		
+		int return_value = 0;
+		
+		try {
+			//Send request
+			BufferedOutputStream bos = new BufferedOutputStream(connection.
+			            getOutputStream());
+			OutputStreamWriter osw = new OutputStreamWriter(bos, "UTF-8");
+			
+			osw.write(loginDetails);
+            osw.flush();
+            
+            System.out.println("Client: sendLoginDetails() : Wrote out to osw, authentication in process");
+			
+			// Get statement
+			BufferedInputStream bis = new BufferedInputStream(connection.
+		                getInputStream());
+			InputStreamReader isr = new InputStreamReader(bis, "UTF-8");
+			
+			
+			int login_status = isr.read();
+			
+			System.out.println("Client: sendLoginDetails() : Logged out successfully: ");
+			return_value = 1;
+			
+			 
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		try {
+			connection.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return return_value;
+	}
+	
 }

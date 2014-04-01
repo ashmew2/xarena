@@ -26,7 +26,7 @@ public class loginscreen {
 
 
 	private static final int CONNECTION_ESTABILISHED = 50;
-	static loginscreen window;
+	public static loginscreen window;
 	/**
 	 * Launch the application.
 	 */
@@ -110,7 +110,9 @@ public class loginscreen {
 						
 						mainscreen screen = new mainscreen();
 						window.frame.setVisible(false);
+						
 						screen.main(null);
+						System.out.println("here after calling main");
 						
 					} else {
 						JOptionPane.showMessageDialog(frame, "Login failed");
