@@ -55,14 +55,14 @@ public class mainscreen {
 	private static final int WRONG_ANSWER = 40;
 
 	private static final int CONNECTION_ESTABILISHED = 50;
-	
+
+	private static final int TIME_LIMIT_EXCEEDED = 60;
 	int currentProblemID = 0;
-	public String username = "";
 	
 	SocketClient client;
-	private JFrame frame;
+	private JFrame frmXarena;
 	public String selectedFilePath = "", selectedFileContents = "";
-
+	static mainscreen window;
 	/**
 	 * Launch the application.
 	 */
@@ -70,8 +70,8 @@ public class mainscreen {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					mainscreen window = new mainscreen();
-					window.frame.setVisible(true);
+					window = new mainscreen();
+					window.frmXarena.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -91,54 +91,53 @@ public class mainscreen {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.getContentPane().setForeground(Color.WHITE);
-		frame.getContentPane().setBackground(UIManager.getColor("Button.background"));
-		frame.setBackground(Color.DARK_GRAY);
-		frame.setBounds(100, 100, 600, 450);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmXarena = new JFrame();
+		frmXarena.setExtendedState(frmXarena.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+		frmXarena.setTitle("X.ARENA");
+		frmXarena.getContentPane().setForeground(Color.WHITE);
+		frmXarena.getContentPane().setBackground(Color.BLACK);
+		frmXarena.setBackground(Color.DARK_GRAY);
+		//frmXarena.setBounds(100, 100, 600, 450);
+		
+		//frmXarena.setBounds(0, 0, 1366, 768);
+		frmXarena.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{21, 136, 129, 84, 194, 24, 0};
-		gridBagLayout.rowHeights = new int[]{33, 33, 242, 0, 0, 25, 0, 0};
+		gridBagLayout.rowHeights = new int[]{33, 242, 0, 0, 25, 0, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		frame.getContentPane().setLayout(gridBagLayout);
+		gridBagLayout.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		frmXarena.getContentPane().setLayout(gridBagLayout);
 		
-		System.out.println("username is " + username);
-		JLabel lblHello = new JLabel("Hello, " + username);
-		GridBagConstraints gbc_lblHello = new GridBagConstraints();
-		gbc_lblHello.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblHello.insets = new Insets(0, 0, 5, 5);
-		gbc_lblHello.gridx = 1;
-		gbc_lblHello.gridy = 0;
-		frame.getContentPane().add(lblHello, gbc_lblHello);
-		
+			
 		JLabel lblProblemStatement = new JLabel("Problem Statement");
+		lblProblemStatement.setForeground(Color.GREEN);
 		GridBagConstraints gbc_lblProblemStatement = new GridBagConstraints();
 		gbc_lblProblemStatement.anchor = GridBagConstraints.WEST;
 		gbc_lblProblemStatement.fill = GridBagConstraints.VERTICAL;
 		gbc_lblProblemStatement.insets = new Insets(0, 0, 5, 5);
 		gbc_lblProblemStatement.gridx = 1;
-		gbc_lblProblemStatement.gridy = 1;
-		frame.getContentPane().add(lblProblemStatement, gbc_lblProblemStatement);
+		gbc_lblProblemStatement.gridy = 0;
+		frmXarena.getContentPane().add(lblProblemStatement, gbc_lblProblemStatement);
 		
 		JLabel lblProblem = new JLabel("Problem:");
+		lblProblem.setForeground(Color.GREEN);
 		GridBagConstraints gbc_lblProblem = new GridBagConstraints();
 		gbc_lblProblem.anchor = GridBagConstraints.EAST;
 		gbc_lblProblem.insets = new Insets(0, 0, 5, 5);
 		gbc_lblProblem.gridx = 3;
-		gbc_lblProblem.gridy = 1;
-		frame.getContentPane().add(lblProblem, gbc_lblProblem);
+		gbc_lblProblem.gridy = 0;
+		frmXarena.getContentPane().add(lblProblem, gbc_lblProblem);
 		
 		
 		String[] problemNamesList = { "choose a problem" , "Problem 1" , "Problem 2"};
 		JComboBox comboBoxProblemsList = new JComboBox(problemNamesList);
+		comboBoxProblemsList.setForeground(Color.BLACK);
 		GridBagConstraints gbc_comboBoxProblemsList = new GridBagConstraints();
 		gbc_comboBoxProblemsList.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBoxProblemsList.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBoxProblemsList.gridx = 4;
-		gbc_comboBoxProblemsList.gridy = 1;
-		frame.getContentPane().add(comboBoxProblemsList, gbc_comboBoxProblemsList);
+		gbc_comboBoxProblemsList.gridy = 0;
+		frmXarena.getContentPane().add(comboBoxProblemsList, gbc_comboBoxProblemsList);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		
@@ -153,46 +152,57 @@ public class mainscreen {
 		gbc_scrollPane.gridwidth = 4;
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
 		gbc_scrollPane.gridx = 1;
-		gbc_scrollPane.gridy = 2;
-		frame.getContentPane().add(scrollPane, gbc_scrollPane);
+		gbc_scrollPane.gridy = 1;
+		frmXarena.getContentPane().add(scrollPane, gbc_scrollPane);
 		
 		JLabel lblChooseYourFile = new JLabel("Choose your file:");
+		lblChooseYourFile.setForeground(Color.GREEN);
 		GridBagConstraints gbc_lblChooseYourFile = new GridBagConstraints();
 		gbc_lblChooseYourFile.insets = new Insets(0, 0, 5, 5);
 		gbc_lblChooseYourFile.gridx = 1;
-		gbc_lblChooseYourFile.gridy = 4;
-		frame.getContentPane().add(lblChooseYourFile, gbc_lblChooseYourFile);
+		gbc_lblChooseYourFile.gridy = 3;
+		frmXarena.getContentPane().add(lblChooseYourFile, gbc_lblChooseYourFile);
 		
 		JButton btnBrowse = new JButton("Browse...");
 		GridBagConstraints gbc_btnBrowse = new GridBagConstraints();
 		gbc_btnBrowse.anchor = GridBagConstraints.WEST;
 		gbc_btnBrowse.insets = new Insets(0, 0, 5, 5);
 		gbc_btnBrowse.gridx = 2;
-		gbc_btnBrowse.gridy = 4;
-		frame.getContentPane().add(btnBrowse, gbc_btnBrowse);
+		gbc_btnBrowse.gridy = 3;
+		frmXarena.getContentPane().add(btnBrowse, gbc_btnBrowse);
 		
 		JButton btnSubmit = new JButton("Submit");
 		GridBagConstraints gbc_btnSubmit = new GridBagConstraints();
 		gbc_btnSubmit.insets = new Insets(0, 0, 5, 5);
 		gbc_btnSubmit.gridx = 3;
-		gbc_btnSubmit.gridy = 4;
-		frame.getContentPane().add(btnSubmit, gbc_btnSubmit);
+		gbc_btnSubmit.gridy = 3;
+		frmXarena.getContentPane().add(btnSubmit, gbc_btnSubmit);
 		
-		JButton btnQuit = new JButton("Close");
+		JButton btnQuit = new JButton("Logout");
 		GridBagConstraints gbc_btnQuit = new GridBagConstraints();
 		gbc_btnQuit.anchor = GridBagConstraints.EAST;
 		gbc_btnQuit.insets = new Insets(0, 0, 5, 5);
 		gbc_btnQuit.gridx = 4;
-		gbc_btnQuit.gridy = 4;
-		frame.getContentPane().add(btnQuit, gbc_btnQuit);
+		gbc_btnQuit.gridy = 3;
+		frmXarena.getContentPane().add(btnQuit, gbc_btnQuit);
 		
 		btnQuit.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				client = new SocketClient();
+				client.main(null);
 				
-				System.exit(0);
+				String request = "LOGOUT" + (char)13 + "ME" + (char)13;
+				
+				client.Logout(request);
+				
+				loginscreen lscreen = new loginscreen();
+				lscreen.main(null);
+				window.frmXarena.setVisible(false);
+				
+				//System.exit(0);
 			}
 		});
 		
@@ -203,11 +213,12 @@ public class mainscreen {
 		textArea.setCaretPosition(0);
 		
 		final JLabel lblChosenFile = new JLabel("");
+		lblChosenFile.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblChosenFile = new GridBagConstraints();
 		gbc_lblChosenFile.insets = new Insets(0, 0, 5, 5);
 		gbc_lblChosenFile.gridx = 1;
-		gbc_lblChosenFile.gridy = 5;
-		frame.getContentPane().add(lblChosenFile, gbc_lblChosenFile);
+		gbc_lblChosenFile.gridy = 4;
+		frmXarena.getContentPane().add(lblChosenFile, gbc_lblChosenFile);
 		
 		final JFileChooser fc = new JFileChooser();
 		
@@ -250,8 +261,11 @@ public class mainscreen {
 				if(command.equals("submit")) {
 					
 					if(selectedFilePath == "") {
-						JOptionPane.showMessageDialog(frame, "Please select a file to submit first");
-					} else {
+						JOptionPane.showMessageDialog(frmXarena, "Please select a file to submit first");
+					} else if(currentProblemID == 0) {
+						JOptionPane.showMessageDialog(frmXarena, "Please choose a problem first");
+					}
+					else {
 					
 						Charset charset = Charset.forName("UTF-8");
 	//					selectedFilePath = "/home/sudipto/tester.cpp";
@@ -266,12 +280,12 @@ public class mainscreen {
 						    }
 						    sendDataToServer(selectedFileContents);
 						} catch (IOException x) {
-						    System.err.format("IOException: %s%n", x);
+						    //System.err.format("IOException: %s%n", x);
+							JOptionPane.showMessageDialog(frmXarena, "Invalid File. Please submit a valid C/C++ source.");
 						}
 					}
 				}
 			}
-
 		} );
 		
 		
@@ -285,7 +299,7 @@ public class mainscreen {
 				int problemSelectedIndex = (int) cb.getSelectedIndex();
 				
 				if(problemSelectedIndex > 0) { 
-					JOptionPane.showMessageDialog(frame, "You selected problem ID: " + problemSelectedIndex);
+					//JOptionPane.showMessageDialog(frame, "You selected problem ID: " + problemSelectedIndex);
 					
 					String statement = loadProblem(problemSelectedIndex);
 					textArea.setText(statement);
@@ -296,8 +310,6 @@ public class mainscreen {
 				}
 			}
 		});
-		
-				
 	}
 	
 	private String loadProblem(int problemID) {
@@ -322,7 +334,7 @@ public class mainscreen {
 		client = new SocketClient();
 		int connectionStatus = client.main(null);
 		if(connectionStatus == CONNECTION_ESTABILISHED) {
-			JOptionPane.showMessageDialog(frame, "Connection to server estabilished.");
+			//JOptionPane.showMessageDialog(frame, "Connection to server estabilished.");
 		}
 		statement = client.getProblemStatement(problemID);
 		
@@ -350,20 +362,24 @@ public class mainscreen {
 		client = new SocketClient();
 		int connectionStatus = client.main(null);
 		if(connectionStatus == CONNECTION_ESTABILISHED) {
-			JOptionPane.showMessageDialog(frame, "Connection to server estabilished.");
+			//JOptionPane.showMessageDialog(frame, "Connection to server estabilished.");
 		}
 		
 		int verdict = client.sendSubmission(submission, currentProblemID);
 		
 		System.out.println("verdict at mainscreen : "+ verdict);
 		if(verdict == CORRECT_ANSWER) {
-			JOptionPane.showMessageDialog(frame, "Your submission was judged as : CORRECT ANSWER");
+			JOptionPane.showMessageDialog(frmXarena, "Your submission was judged as : CORRECT ANSWER");
 		} else if(verdict == RUNTIME_ERROR) {
-			JOptionPane.showMessageDialog(frame, "Your submission was judged as : RUNTIME ERROR");
+			JOptionPane.showMessageDialog(frmXarena, "Your submission was judged as : RUNTIME ERROR");
 		} else if(verdict == COMPILE_ERROR) {
-			JOptionPane.showMessageDialog(frame, "Your submission was judged as : COMPILE ERROR");
+			JOptionPane.showMessageDialog(frmXarena, "Your submission was judged as : COMPILE ERROR");
 		} else if(verdict == WRONG_ANSWER) {
-			JOptionPane.showMessageDialog(frame, "Your submission was judged as : WRONG ANSWER");
+			JOptionPane.showMessageDialog(frmXarena, "Your submission was judged as : WRONG ANSWER");
+		} else if(verdict == TIME_LIMIT_EXCEEDED) {
+			JOptionPane.showMessageDialog(frmXarena, "Your submission was judged as : TIME LIMIT EXCEEDED");
+		} else  {
+			JOptionPane.showMessageDialog(frmXarena, "Your submission was DENIED JUDGEMENT .|..");
 		}
 	
 	}

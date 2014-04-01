@@ -15,17 +15,21 @@ import java.awt.event.ActionEvent;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
+import java.awt.Color;
+import com.jgoodies.forms.factories.FormFactory;
+import java.awt.Font;
+import javax.swing.JTextArea;
 
 
 public class loginscreen {
 
-	private JFrame frame;
+	private JFrame frmXarena;
 	private JTextField usernameTextField;
 	private JPasswordField passwordTextField;
 
 
 	private static final int CONNECTION_ESTABILISHED = 50;
-	static loginscreen window;
+	public static loginscreen window;
 	/**
 	 * Launch the application.
 	 */
@@ -34,7 +38,7 @@ public class loginscreen {
 			public void run() {
 				try {
 					window = new loginscreen();
-					window.frame.setVisible(true);
+					window.frmXarena.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -53,14 +57,31 @@ public class loginscreen {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
-				ColumnSpec.decode("60px"),
+		frmXarena = new JFrame();
+		frmXarena.setExtendedState(frmXarena.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+		frmXarena.setTitle("X.ARENA");
+		frmXarena.getContentPane().setBackground(Color.BLACK);
+		//frmXarena.setBounds(0, 0, 1366, 768);
+		frmXarena.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmXarena.getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
+				ColumnSpec.decode("left:45px:grow"),
 				ColumnSpec.decode("72px"),
-				ColumnSpec.decode("35px"),
-				ColumnSpec.decode("166px"),},
+				ColumnSpec.decode("25px"),
+				ColumnSpec.decode("147px:grow"),
+				FormFactory.RELATED_GAP_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,
+				FormFactory.RELATED_GAP_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,
+				FormFactory.RELATED_GAP_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,
+				FormFactory.RELATED_GAP_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,
+				FormFactory.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("default:grow"),
+				FormFactory.RELATED_GAP_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,
+				FormFactory.RELATED_GAP_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,},
 			new RowSpec[] {
 				RowSpec.decode("30px"),
 				RowSpec.decode("15px"),
@@ -69,23 +90,47 @@ public class loginscreen {
 				RowSpec.decode("35px"),
 				RowSpec.decode("19px"),
 				RowSpec.decode("35px"),
-				RowSpec.decode("25px"),}));
+				RowSpec.decode("25px"),
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("default:grow"),}));
 		
-		JLabel lblXarena = new JLabel("XARENA");
-		frame.getContentPane().add(lblXarena, "4, 2, center, center");
+		JLabel lblXarena = new JLabel("X.ARENA");
+		lblXarena.setFont(new Font("Dialog", Font.BOLD, 17));
+		lblXarena.setForeground(Color.RED);
+		frmXarena.getContentPane().add(lblXarena, "4, 2, center, center");
 		
 		JLabel lblUsername = new JLabel("Username");
-		frame.getContentPane().add(lblUsername, "2, 4, center, center");
+		lblUsername.setForeground(Color.GREEN);
+		frmXarena.getContentPane().add(lblUsername, "2, 4, center, center");
 		
 		usernameTextField = new JTextField();
-		frame.getContentPane().add(usernameTextField, "4, 4, fill, center");
+		frmXarena.getContentPane().add(usernameTextField, "4, 4, fill, center");
 		usernameTextField.setColumns(10);
 		
 		JLabel lblPassword = new JLabel("Password");
-		frame.getContentPane().add(lblPassword, "2, 6, center, center");
+		lblPassword.setForeground(Color.GREEN);
+		frmXarena.getContentPane().add(lblPassword, "2, 6, center, center");
 		
 		passwordTextField = new JPasswordField();
-		frame.getContentPane().add(passwordTextField, "4, 6, fill, center");
+		frmXarena.getContentPane().add(passwordTextField, "4, 6, fill, center");
 		
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
@@ -101,15 +146,16 @@ public class loginscreen {
 					loginDetails = "LOGIN" + (char)13 + username + (char)13 + (new String(password)) + (char)13; 
 					
 					if( client.sendLoginDetails(loginDetails) == 1) {
-						JOptionPane.showMessageDialog(frame, "Login successfull!");
+						JOptionPane.showMessageDialog(frmXarena, "Login successfull!");
 						
-						// TODO: Set lblHello in mainscreen as "Hello, " + username
 						mainscreen screen = new mainscreen();
-						window.frame.setVisible(false);
+						window.frmXarena.setVisible(false);
+						
 						screen.main(null);
+						System.out.println("here after calling main");
 						
 					} else {
-						JOptionPane.showMessageDialog(frame, "Login failed");
+						JOptionPane.showMessageDialog(frmXarena, "Login failed");
 					}
 					
 				}
@@ -117,7 +163,26 @@ public class loginscreen {
 				
 			}
 		});
-		frame.getContentPane().add(btnLogin, "4, 8, center, center");
+		frmXarena.getContentPane().add(btnLogin, "4, 8, center, center");
+		
+		JButton btnSignUp = new JButton("Sign Up");
+		btnSignUp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				signupscreen sus = new signupscreen();
+				
+				sus.main(null);
+				
+				window.frmXarena.setVisible(false);
+			}
+		});
+		frmXarena.getContentPane().add(btnSignUp, "4, 10, center, center");
+		
+		JTextArea txtrCreatedByAshish = new JTextArea();
+		txtrCreatedByAshish.setText(" /******************************************************************\n\nFrom the creators of the X BUS RESERVATION SYSTEM\n\nDeveloped using Git as the Version Control System.\nFind the repository at www.github.com/ashmew2/xarena\n\t\n\t====================\n\t       WELCOME TO X.ARENA\n\t====================\n\nX.Arena is a platform for programmers who enjoy programming.\n\nThe currently supported languages are GNU C and C++.\n\nThis is copyright software licensed under GNU Public License v2.\nYou can view the full license at www.gnu.org/licences.\n\n\n*******************************************************************/\n");
+		txtrCreatedByAshish.setForeground(Color.RED);
+		txtrCreatedByAshish.setBackground(Color.BLACK);
+		frmXarena.getContentPane().add(txtrCreatedByAshish, "4, 28, center, fill");
 	}
 
 }
