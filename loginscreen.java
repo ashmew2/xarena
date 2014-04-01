@@ -18,6 +18,7 @@ import com.jgoodies.forms.layout.RowSpec;
 import java.awt.Color;
 import com.jgoodies.forms.factories.FormFactory;
 import java.awt.Font;
+import javax.swing.JTextArea;
 
 
 public class loginscreen {
@@ -57,15 +58,30 @@ public class loginscreen {
 	 */
 	private void initialize() {
 		frmXarena = new JFrame();
+		frmXarena.setExtendedState(frmXarena.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 		frmXarena.setTitle("X.ARENA");
 		frmXarena.getContentPane().setBackground(Color.BLACK);
-		frmXarena.setBounds(100, 100, 450, 300);
+		//frmXarena.setBounds(0, 0, 1366, 768);
 		frmXarena.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmXarena.getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
-				ColumnSpec.decode("60px"),
+				ColumnSpec.decode("left:45px:grow"),
 				ColumnSpec.decode("72px"),
 				ColumnSpec.decode("25px"),
-				ColumnSpec.decode("166px"),},
+				ColumnSpec.decode("147px:grow"),
+				FormFactory.RELATED_GAP_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,
+				FormFactory.RELATED_GAP_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,
+				FormFactory.RELATED_GAP_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,
+				FormFactory.RELATED_GAP_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,
+				FormFactory.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("default:grow"),
+				FormFactory.RELATED_GAP_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,
+				FormFactory.RELATED_GAP_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,},
 			new RowSpec[] {
 				RowSpec.decode("30px"),
 				RowSpec.decode("15px"),
@@ -76,7 +92,25 @@ public class loginscreen {
 				RowSpec.decode("35px"),
 				RowSpec.decode("25px"),
 				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,}));
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("default:grow"),}));
 		
 		JLabel lblXarena = new JLabel("X.ARENA");
 		lblXarena.setFont(new Font("Dialog", Font.BOLD, 17));
@@ -143,6 +177,12 @@ public class loginscreen {
 			}
 		});
 		frmXarena.getContentPane().add(btnSignUp, "4, 10, center, center");
+		
+		JTextArea txtrCreatedByAshish = new JTextArea();
+		txtrCreatedByAshish.setText(" /******************************************************************\n\nFrom the creators of the X BUS RESERVATION SYSTEM\n\nDeveloped using Git as the Version Control System.\nFind the repository at www.github.com/ashmew2/xarena\n\t\n\t====================\n\t       WELCOME TO X.ARENA\n\t====================\n\nX.Arena is a platform for programmers who enjoy programming.\n\nThe currently supported languages are GNU C and C++.\n\nThis is copyright software licensed under GNU Public License v2.\nYou can view the full license at www.gnu.org/licences.\n\n\n*******************************************************************/\n");
+		txtrCreatedByAshish.setForeground(Color.RED);
+		txtrCreatedByAshish.setBackground(Color.BLACK);
+		frmXarena.getContentPane().add(txtrCreatedByAshish, "4, 28, center, fill");
 	}
 
 }

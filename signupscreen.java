@@ -63,6 +63,7 @@ public class signupscreen {
 	 */
 	private void initialize() {
 		frmXarena = new JFrame();
+		frmXarena.setExtendedState(frmXarena.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 		frmXarena.setTitle("X.ARENA");
 		frmXarena.getContentPane().setFont(new Font("Dialog", Font.PLAIN, 14));
 		frmXarena.getContentPane().setBackground(Color.BLACK);
@@ -219,7 +220,7 @@ public class signupscreen {
 			}
 		});
 		frmXarena.getContentPane().add(btnCancel, "4, 12, center, default");
-		frmXarena.setBounds(100, 100, 450, 300);
+		//frmXarena.setBounds(100, 100, 450, 300);
 		frmXarena.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 

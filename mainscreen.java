@@ -92,11 +92,14 @@ public class mainscreen {
 	 */
 	private void initialize() {
 		frmXarena = new JFrame();
+		frmXarena.setExtendedState(frmXarena.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 		frmXarena.setTitle("X.ARENA");
 		frmXarena.getContentPane().setForeground(Color.WHITE);
 		frmXarena.getContentPane().setBackground(Color.BLACK);
 		frmXarena.setBackground(Color.DARK_GRAY);
-		frmXarena.setBounds(100, 100, 600, 450);
+		//frmXarena.setBounds(100, 100, 600, 450);
+		
+		//frmXarena.setBounds(0, 0, 1366, 768);
 		frmXarena.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{21, 136, 129, 84, 194, 24, 0};
@@ -175,7 +178,7 @@ public class mainscreen {
 		gbc_btnSubmit.gridy = 3;
 		frmXarena.getContentPane().add(btnSubmit, gbc_btnSubmit);
 		
-		JButton btnQuit = new JButton("Close");
+		JButton btnQuit = new JButton("Logout");
 		GridBagConstraints gbc_btnQuit = new GridBagConstraints();
 		gbc_btnQuit.anchor = GridBagConstraints.EAST;
 		gbc_btnQuit.insets = new Insets(0, 0, 5, 5);
