@@ -174,7 +174,7 @@ public class SocketClient {
 			osw.write(request);
             osw.flush();
             
-            System.out.println("Client: getProblemStatement() : Wrote out to osw, submission sent. Waiting for problem statement to arrive.");
+            System.out.println("Client: getProblemStatement() : Wrote out to osw, request sent. Waiting for problem statement to arrive.");
 			
 			// Get statement
 			BufferedInputStream bis = new BufferedInputStream(connection.

@@ -87,10 +87,12 @@ public class SingleSocketServer {
 		    			  stmt = conn.createStatement();
 		    			  ResultSet rs = stmt.executeQuery( "SELECT * FROM PARTICIPANT;" );
 
+		    			  
 		    			  while ( rs.next() ) {
 		    				  String username = rs.getString("username");
 		    				  String  password = rs.getString("password");
-		    				  if((username.equals(input_username)) && (password.equals(input_password) ) )
+		    				  
+		    				  if((username.equals(input_username.toString())) && (password.equals(input_password.toString()) ) )
 		    						  {
 		    					  logged_in = 1;
 		    					  BufferedOutputStream os = new BufferedOutputStream(connection.getOutputStream());
@@ -102,9 +104,21 @@ public class SingleSocketServer {
 		    						  }
 		    			  }
 
+		    			  System.out.println("Logged in status after loop : " + logged_in);	
+		    			  
 		    			  rs.close();
 		    			  stmt.close();
 		    			  conn.close();
+		    			  
+		    			  BufferedOutputStream os = new BufferedOutputStream(connection.getOutputStream());
+				          OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
+				          
+				          if(logged_in == 1)
+				        	  osw.write(1);
+				          else
+				        	  osw.write(0);
+				          osw.flush(); //Response sent to client -> login successfull
+		    			  
 		    		  } catch ( Exception e ) {
 		    			  System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 		    			  System.exit(0);
@@ -114,6 +128,11 @@ public class SingleSocketServer {
 		      
 		      else {
 		    	  
+		    	  System.out.println("Server: In else");
+
+	    		  connection = socket1.accept();
+	    		  System.out.println("Server: Accepted client.");
+		    	  
 		    	  is = new BufferedInputStream(connection.getInputStream());
 	    		  isr = new InputStreamReader(is);
 	    		  input_type = new StringBuffer();
@@ -122,9 +141,10 @@ public class SingleSocketServer {
 		          while((character = isr.read()) != 13) {
 		            input_type.append((char)character);
 		            System.out.println("Server: trying to read char, read : "+ (char)character);
+		            
 		          }
 		          
-		          if(input_type.equals(""))
+		          // if(input_type.equals("")) <--- Why? 
 		          
 		          while((character = isr.read()) != 13) {
 		            input_string.append((char)character);
