@@ -12,7 +12,7 @@ public class SingleSocketServer {
 	/**
 	 * @param args
 	 */
-	 static String username = "sudipto";
+	 static String username = "ashish";
 	 static ServerSocket socket1;
 	 protected final static int port = 27016;
 	 private static final int RUNTIME_ERROR = 10;	
@@ -62,7 +62,7 @@ public class SingleSocketServer {
 		    		  //"LOGIN" + char13 + uname + char13 + pword + char13 ayega
 
 		    		  while((character = isr.read()) != 13) {
-		    			  input_login.append((char)character);
+		    			  input_type.append((char)character);
 		    			  System.out.println("Server: trying to read char, read : "+ (char)character);
 		    		  }
 
@@ -93,6 +93,10 @@ public class SingleSocketServer {
 		    				  if((username.equals(input_username)) && (password.equals(input_password) ) )
 		    						  {
 		    					  logged_in = 1;
+		    					  BufferedOutputStream os = new BufferedOutputStream(connection.getOutputStream());
+		    					  OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
+		    					  osw.write("1");
+		    				      osw.flush();	
 		    					  //Send to client "Welcome to the X Arena";
 		    					  break;
 		    						  }
