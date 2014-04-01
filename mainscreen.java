@@ -60,7 +60,7 @@ public class mainscreen {
 	int currentProblemID = 0;
 	
 	SocketClient client;
-	private JFrame frame;
+	private JFrame frmXarena;
 	public String selectedFilePath = "", selectedFileContents = "";
 	static mainscreen window;
 	/**
@@ -71,7 +71,7 @@ public class mainscreen {
 			public void run() {
 				try {
 					window = new mainscreen();
-					window.frame.setVisible(true);
+					window.frmXarena.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -91,18 +91,19 @@ public class mainscreen {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.getContentPane().setForeground(Color.WHITE);
-		frame.getContentPane().setBackground(Color.BLACK);
-		frame.setBackground(Color.DARK_GRAY);
-		frame.setBounds(100, 100, 600, 450);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmXarena = new JFrame();
+		frmXarena.setTitle("X.ARENA");
+		frmXarena.getContentPane().setForeground(Color.WHITE);
+		frmXarena.getContentPane().setBackground(Color.BLACK);
+		frmXarena.setBackground(Color.DARK_GRAY);
+		frmXarena.setBounds(100, 100, 600, 450);
+		frmXarena.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{21, 136, 129, 84, 194, 24, 0};
 		gridBagLayout.rowHeights = new int[]{33, 242, 0, 0, 25, 0, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		frame.getContentPane().setLayout(gridBagLayout);
+		frmXarena.getContentPane().setLayout(gridBagLayout);
 		
 			
 		JLabel lblProblemStatement = new JLabel("Problem Statement");
@@ -113,7 +114,7 @@ public class mainscreen {
 		gbc_lblProblemStatement.insets = new Insets(0, 0, 5, 5);
 		gbc_lblProblemStatement.gridx = 1;
 		gbc_lblProblemStatement.gridy = 0;
-		frame.getContentPane().add(lblProblemStatement, gbc_lblProblemStatement);
+		frmXarena.getContentPane().add(lblProblemStatement, gbc_lblProblemStatement);
 		
 		JLabel lblProblem = new JLabel("Problem:");
 		lblProblem.setForeground(Color.GREEN);
@@ -122,18 +123,18 @@ public class mainscreen {
 		gbc_lblProblem.insets = new Insets(0, 0, 5, 5);
 		gbc_lblProblem.gridx = 3;
 		gbc_lblProblem.gridy = 0;
-		frame.getContentPane().add(lblProblem, gbc_lblProblem);
+		frmXarena.getContentPane().add(lblProblem, gbc_lblProblem);
 		
 		
 		String[] problemNamesList = { "choose a problem" , "Problem 1" , "Problem 2"};
 		JComboBox comboBoxProblemsList = new JComboBox(problemNamesList);
-		comboBoxProblemsList.setForeground(Color.LIGHT_GRAY);
+		comboBoxProblemsList.setForeground(Color.BLACK);
 		GridBagConstraints gbc_comboBoxProblemsList = new GridBagConstraints();
 		gbc_comboBoxProblemsList.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBoxProblemsList.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBoxProblemsList.gridx = 4;
 		gbc_comboBoxProblemsList.gridy = 0;
-		frame.getContentPane().add(comboBoxProblemsList, gbc_comboBoxProblemsList);
+		frmXarena.getContentPane().add(comboBoxProblemsList, gbc_comboBoxProblemsList);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		
@@ -149,7 +150,7 @@ public class mainscreen {
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
 		gbc_scrollPane.gridx = 1;
 		gbc_scrollPane.gridy = 1;
-		frame.getContentPane().add(scrollPane, gbc_scrollPane);
+		frmXarena.getContentPane().add(scrollPane, gbc_scrollPane);
 		
 		JLabel lblChooseYourFile = new JLabel("Choose your file:");
 		lblChooseYourFile.setForeground(Color.GREEN);
@@ -157,7 +158,7 @@ public class mainscreen {
 		gbc_lblChooseYourFile.insets = new Insets(0, 0, 5, 5);
 		gbc_lblChooseYourFile.gridx = 1;
 		gbc_lblChooseYourFile.gridy = 3;
-		frame.getContentPane().add(lblChooseYourFile, gbc_lblChooseYourFile);
+		frmXarena.getContentPane().add(lblChooseYourFile, gbc_lblChooseYourFile);
 		
 		JButton btnBrowse = new JButton("Browse...");
 		GridBagConstraints gbc_btnBrowse = new GridBagConstraints();
@@ -165,14 +166,14 @@ public class mainscreen {
 		gbc_btnBrowse.insets = new Insets(0, 0, 5, 5);
 		gbc_btnBrowse.gridx = 2;
 		gbc_btnBrowse.gridy = 3;
-		frame.getContentPane().add(btnBrowse, gbc_btnBrowse);
+		frmXarena.getContentPane().add(btnBrowse, gbc_btnBrowse);
 		
 		JButton btnSubmit = new JButton("Submit");
 		GridBagConstraints gbc_btnSubmit = new GridBagConstraints();
 		gbc_btnSubmit.insets = new Insets(0, 0, 5, 5);
 		gbc_btnSubmit.gridx = 3;
 		gbc_btnSubmit.gridy = 3;
-		frame.getContentPane().add(btnSubmit, gbc_btnSubmit);
+		frmXarena.getContentPane().add(btnSubmit, gbc_btnSubmit);
 		
 		JButton btnQuit = new JButton("Close");
 		GridBagConstraints gbc_btnQuit = new GridBagConstraints();
@@ -180,7 +181,7 @@ public class mainscreen {
 		gbc_btnQuit.insets = new Insets(0, 0, 5, 5);
 		gbc_btnQuit.gridx = 4;
 		gbc_btnQuit.gridy = 3;
-		frame.getContentPane().add(btnQuit, gbc_btnQuit);
+		frmXarena.getContentPane().add(btnQuit, gbc_btnQuit);
 		
 		btnQuit.addActionListener(new ActionListener() {
 			
@@ -196,7 +197,7 @@ public class mainscreen {
 				
 				loginscreen lscreen = new loginscreen();
 				lscreen.main(null);
-				window.frame.setVisible(false);
+				window.frmXarena.setVisible(false);
 				
 				//System.exit(0);
 			}
@@ -209,11 +210,12 @@ public class mainscreen {
 		textArea.setCaretPosition(0);
 		
 		final JLabel lblChosenFile = new JLabel("");
+		lblChosenFile.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblChosenFile = new GridBagConstraints();
 		gbc_lblChosenFile.insets = new Insets(0, 0, 5, 5);
 		gbc_lblChosenFile.gridx = 1;
 		gbc_lblChosenFile.gridy = 4;
-		frame.getContentPane().add(lblChosenFile, gbc_lblChosenFile);
+		frmXarena.getContentPane().add(lblChosenFile, gbc_lblChosenFile);
 		
 		final JFileChooser fc = new JFileChooser();
 		
@@ -256,9 +258,9 @@ public class mainscreen {
 				if(command.equals("submit")) {
 					
 					if(selectedFilePath == "") {
-						JOptionPane.showMessageDialog(frame, "Please select a file to submit first");
+						JOptionPane.showMessageDialog(frmXarena, "Please select a file to submit first");
 					} else if(currentProblemID == 0) {
-						JOptionPane.showMessageDialog(frame, "Please choose a problem first");
+						JOptionPane.showMessageDialog(frmXarena, "Please choose a problem first");
 					}
 					else {
 					
@@ -275,12 +277,12 @@ public class mainscreen {
 						    }
 						    sendDataToServer(selectedFileContents);
 						} catch (IOException x) {
-						    System.err.format("IOException: %s%n", x);
+						    //System.err.format("IOException: %s%n", x);
+							JOptionPane.showMessageDialog(frmXarena, "Invalid File. Please submit a valid C/C++ source.");
 						}
 					}
 				}
 			}
-
 		} );
 		
 		
@@ -305,8 +307,6 @@ public class mainscreen {
 				}
 			}
 		});
-		
-				
 	}
 	
 	private String loadProblem(int problemID) {
@@ -366,17 +366,17 @@ public class mainscreen {
 		
 		System.out.println("verdict at mainscreen : "+ verdict);
 		if(verdict == CORRECT_ANSWER) {
-			JOptionPane.showMessageDialog(frame, "Your submission was judged as : CORRECT ANSWER");
+			JOptionPane.showMessageDialog(frmXarena, "Your submission was judged as : CORRECT ANSWER");
 		} else if(verdict == RUNTIME_ERROR) {
-			JOptionPane.showMessageDialog(frame, "Your submission was judged as : RUNTIME ERROR");
+			JOptionPane.showMessageDialog(frmXarena, "Your submission was judged as : RUNTIME ERROR");
 		} else if(verdict == COMPILE_ERROR) {
-			JOptionPane.showMessageDialog(frame, "Your submission was judged as : COMPILE ERROR");
+			JOptionPane.showMessageDialog(frmXarena, "Your submission was judged as : COMPILE ERROR");
 		} else if(verdict == WRONG_ANSWER) {
-			JOptionPane.showMessageDialog(frame, "Your submission was judged as : WRONG ANSWER");
+			JOptionPane.showMessageDialog(frmXarena, "Your submission was judged as : WRONG ANSWER");
 		} else if(verdict == TIME_LIMIT_EXCEEDED) {
-			JOptionPane.showMessageDialog(frame, "Your submission was judged as : TIME LIMIT EXCEEDED");
+			JOptionPane.showMessageDialog(frmXarena, "Your submission was judged as : TIME LIMIT EXCEEDED");
 		} else  {
-			JOptionPane.showMessageDialog(frame, "Your submission was DENIED JUDGEMENT .|..");
+			JOptionPane.showMessageDialog(frmXarena, "Your submission was DENIED JUDGEMENT .|..");
 		}
 	
 	}

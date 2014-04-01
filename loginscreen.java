@@ -16,11 +16,13 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import java.awt.Color;
+import com.jgoodies.forms.factories.FormFactory;
+import java.awt.Font;
 
 
 public class loginscreen {
 
-	private JFrame frame;
+	private JFrame frmXarena;
 	private JTextField usernameTextField;
 	private JPasswordField passwordTextField;
 
@@ -35,7 +37,7 @@ public class loginscreen {
 			public void run() {
 				try {
 					window = new loginscreen();
-					window.frame.setVisible(true);
+					window.frmXarena.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -54,11 +56,12 @@ public class loginscreen {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.getContentPane().setBackground(Color.BLACK);
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
+		frmXarena = new JFrame();
+		frmXarena.setTitle("X.ARENA");
+		frmXarena.getContentPane().setBackground(Color.BLACK);
+		frmXarena.setBounds(100, 100, 450, 300);
+		frmXarena.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmXarena.getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
 				ColumnSpec.decode("60px"),
 				ColumnSpec.decode("72px"),
 				ColumnSpec.decode("25px"),
@@ -71,26 +74,29 @@ public class loginscreen {
 				RowSpec.decode("35px"),
 				RowSpec.decode("19px"),
 				RowSpec.decode("35px"),
-				RowSpec.decode("25px"),}));
+				RowSpec.decode("25px"),
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,}));
 		
-		JLabel lblXarena = new JLabel("XARENA");
-		lblXarena.setForeground(Color.GREEN);
-		frame.getContentPane().add(lblXarena, "4, 2, center, center");
+		JLabel lblXarena = new JLabel("X.ARENA");
+		lblXarena.setFont(new Font("Dialog", Font.BOLD, 17));
+		lblXarena.setForeground(Color.RED);
+		frmXarena.getContentPane().add(lblXarena, "4, 2, center, center");
 		
 		JLabel lblUsername = new JLabel("Username");
 		lblUsername.setForeground(Color.GREEN);
-		frame.getContentPane().add(lblUsername, "2, 4, center, center");
+		frmXarena.getContentPane().add(lblUsername, "2, 4, center, center");
 		
 		usernameTextField = new JTextField();
-		frame.getContentPane().add(usernameTextField, "4, 4, fill, center");
+		frmXarena.getContentPane().add(usernameTextField, "4, 4, fill, center");
 		usernameTextField.setColumns(10);
 		
 		JLabel lblPassword = new JLabel("Password");
 		lblPassword.setForeground(Color.GREEN);
-		frame.getContentPane().add(lblPassword, "2, 6, center, center");
+		frmXarena.getContentPane().add(lblPassword, "2, 6, center, center");
 		
 		passwordTextField = new JPasswordField();
-		frame.getContentPane().add(passwordTextField, "4, 6, fill, center");
+		frmXarena.getContentPane().add(passwordTextField, "4, 6, fill, center");
 		
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
@@ -106,16 +112,16 @@ public class loginscreen {
 					loginDetails = "LOGIN" + (char)13 + username + (char)13 + (new String(password)) + (char)13; 
 					
 					if( client.sendLoginDetails(loginDetails) == 1) {
-						JOptionPane.showMessageDialog(frame, "Login successfull!");
+						JOptionPane.showMessageDialog(frmXarena, "Login successfull!");
 						
 						mainscreen screen = new mainscreen();
-						window.frame.setVisible(false);
+						window.frmXarena.setVisible(false);
 						
 						screen.main(null);
 						System.out.println("here after calling main");
 						
 					} else {
-						JOptionPane.showMessageDialog(frame, "Login failed");
+						JOptionPane.showMessageDialog(frmXarena, "Login failed");
 					}
 					
 				}
@@ -123,7 +129,20 @@ public class loginscreen {
 				
 			}
 		});
-		frame.getContentPane().add(btnLogin, "4, 8, center, center");
+		frmXarena.getContentPane().add(btnLogin, "4, 8, center, center");
+		
+		JButton btnSignUp = new JButton("Sign Up");
+		btnSignUp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				signupscreen sus = new signupscreen();
+				
+				sus.main(null);
+				
+				window.frmXarena.setVisible(false);
+			}
+		});
+		frmXarena.getContentPane().add(btnSignUp, "4, 10, center, center");
 	}
 
 }
