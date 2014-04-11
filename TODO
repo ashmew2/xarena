@@ -1,2 +1,20 @@
 1. Set lblHello in mainscreen.java as username when user logs in successfully.
 2. Problems list in drop down is static now, need to fetch from server when mainscreen loads up. (optional)
+
+3. Make two modes : Practice and Contest
+
+   Practice : 
+   	    Not timed.
+	    Uses simple problems for practice so that you can get acquainted with the system.
+   
+   Contest : 
+   	   Timed.
+	   Uses a specific set of problems for contest.
+
+4. Queue is required in the judge for multi client support.
+
+5. Add support for multiple people simultaneously logged in.
+
+6. Add a scoreboard.
+
+7. Make the license and text on the initial screen more visible.
